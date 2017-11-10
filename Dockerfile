@@ -1,4 +1,8 @@
-FROM 100.125.1.34:20202/hwcse/small:0.1
-RUN mkdir -p /opt/apps
-COPY ./ /opt/apps/
-ENTRYPOINT gospace -serverpath=/opt/apps
+FROM java:8-jdk
+
+WORKDIR /home/apps/
+ADD target/helloworld-1.0.0.jar .
+ADD target/lib ./lib
+ADD start.sh .
+
+ENTRYPOINT ["sh", "/home/apps/start.sh"]

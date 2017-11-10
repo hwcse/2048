@@ -1,0 +1,26 @@
+APPLICATION_ID: springmvctest
+service_description:
+  name: springmvc
+  version: 0.0.1
+  properties:
+    allowCrossApp: false
+cse:
+  service:
+    registry:
+      address: https://10.125.1.34:30100
+      instance:
+        watch: false
+  config:
+    client:
+      serverUri: https://10.125.1.34:30103
+      refreshMode: 1
+      refresh_interval: 5000
+  monitor:
+    client:
+      serverUri: https://10.125.1.34:30109
+  rest:
+    address: 0.0.0.0:8080
+  credentials:
+    accessKey: ak
+    secretKey: sk
+    akskCustomCipher: default

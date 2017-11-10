@@ -1,38 +1,21 @@
-# 2048
-A small clone of [1024](https://play.google.com/store/apps/details?id=com.veewo.a1024), based on [Saming's 2048](http://saming.fr/p/2048/) (also a clone).
+# Swagger generated server
 
-Made just for fun. [Play it here!](http://gabrielecirulli.github.io/2048/)
+CSE Spring MVC Server
 
-The official app can also be found on the [Play Store](https://play.google.com/store/apps/details?id=com.gabrielecirulli.app2048) and [App Store!](https://itunes.apple.com/us/app/2048-by-gabriele-cirulli/id868076805)
 
-### Contributions
+## Overview
+这里的代码是根据用户提供的swagger.yaml文件自动生成。生成的代码总的来说分成以下几类：
 
-[Anna Harren](https://github.com/iirelu/) and [sigod](https://github.com/sigod) are maintainers for this repository.
+1，入口main函数在com.service.springmvc.SpringmvcServer这个类中。
 
-Other notable contributors:
+2，com.service.controller.CseDemoImpl这个类插入通过定义springmvc的annotation，拦截用户请求、解析参数，并将处理的handler代理给cseDemoAgent类。
 
- - [TimPetricola](https://github.com/TimPetricola) added best score storage
- - [chrisprice](https://github.com/chrisprice) added custom code for swipe handling on mobile
- - [marcingajda](https://github.com/marcingajda) made swipes work on Windows Phone
- - [mgarciaisaia](https://github.com/mgarciaisaia) added support for Android 2.3
+3，com.service.controller.CseDemoAgent类是用户实现具体handler实现的类，理论上只需要用户在这个类里面实现业务逻辑。
 
-Many thanks to [rayhaanj](https://github.com/rayhaanj), [Mechazawa](https://github.com/Mechazawa), [grant](https://github.com/grant), [remram44](https://github.com/remram44) and [ghoullier](https://github.com/ghoullier) for the many other good contributions.
+4，com.service.controller.CseDemo这个类定义了由swagger.yaml里定义了的operation的函数footprint。它可以理解为是cseDemoAgent实现类的接口。
 
-### Screenshot
+5，com.service.model这个包下面是swagger.yaml里面定义的definitions，也就是model层的类。
 
-<p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/1175750/8614312/280e5dc2-26f1-11e5-9f1f-5891c3ca8b26.png" alt="Screenshot"/>
-</p>
+6，resource目录下定义了一些配置文件，包括log4j的配置文件，微服务的配置信息，以及swagger协议文件等等。
 
-That screenshot is fake, by the way. I never reached 2048 :smile:
-
-## Contributing
-Changes and improvements are more than welcome! Feel free to fork and open a pull request. Please make your changes in a specific branch and request to pull into `master`! If you can, please make sure the game fully works before sending the PR, as that will help speed up the process.
-
-You can find the same information in the [contributing guide.](https://github.com/gabrielecirulli/2048/blob/master/CONTRIBUTING.md)
-
-## License
-2048 is licensed under the [MIT license.](https://github.com/gabrielecirulli/2048/blob/master/LICENSE.txt)
-
-## Donations
-I made this in my spare time, and it's hosted on GitHub (which means I don't have any hosting costs), but if you enjoyed the game and feel like buying me coffee, you can donate at my BTC address: `1Ec6onfsQmoP9kkL3zkpB6c5sA4PVcXU2i`. Thank you very much!
+7，特别注意两点：microservice.yaml里面配置信息要填写正确，生成的有可能有些偏差；swagger.yaml里面的x-java-interface配置项一定要指定为com.service.controller.CseDemo。
